@@ -153,8 +153,7 @@ class MyShortestForwarding(app_manager.RyuApp):
         datapath.send_msg(req)
 
 
-    def X_D(self,src,dst):
-        print("X_D")
+    def get_best_path(self,src,dst):
         all_path=nx.all_shortest_paths(self.network,src,dst)
         tmp_path=[]
         tmp_bw=0
@@ -183,7 +182,7 @@ class MyShortestForwarding(app_manager.RyuApp):
         #second: search the shortest path, from src to dst host
         if dst in self.network:
             if dst not in self.paths[src]:    #if not cache src to dst path,then to find it
-                path = self.X_D(src,dst)
+                path = self.get_best_path(src,dst)
                 self.paths[src][dst]=path
             path = self.paths[src][dst]
             next_hop = path[path.index(dpid)+1]
